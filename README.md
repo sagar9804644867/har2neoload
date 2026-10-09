@@ -1,6 +1,6 @@
 # ⚡ HAR2NeoLoad
 
-Turn a browser **HAR** or Fiddler **SAZ** recording into a ready-to-run **NeoLoad** project — with noise removed,
+Turn a browser **HAR** or Fiddler **SAZ** recording into a ready-to-run **NeoLoad** project - with noise removed,
 dynamic values **auto-correlated** and user input **auto-parameterized**.
 
 Built with Streamlit. Output follows the official NeoLoad **as-code v3** schema
@@ -33,14 +33,16 @@ Values that look dynamic but never appear in an earlier response (usually genera
 └── correlation_report.md
 ```
 
-Scenarios included: `Smoke_1VU` (1 user, 1 iteration — validate first) and `Load_Test` (constant load with ramp-up).
+Scenarios included: `Smoke_1VU` (1 user, 1 iteration - validate first) and `Load_Test` (constant load with ramp-up).
 
 ## Using the project in NeoLoad
 
-- **With an existing NeoLoad project:** copy `default.yaml` and `data/` next to your `.nlp`, then
-  `NeoLoadCmd -project "MyProject.nlp" "default.yaml" -launch Smoke_1VU`. User paths, variables, servers and scenarios from the YAML are added to the project.
-- **NeoLoad Web:** zip `neoload_project/` and upload it in *Run a test*; `default.yaml` is loaded automatically.
-- **NeoLoad GUI only:** *User Path → Postman import* with `postman/collection.json`, then add the extractors listed in the report.
+The NeoLoad GUI cannot open YAML directly, so the zip contains two forms of the script:
+
+- **NeoLoad GUI:** *User Paths > New User Path > Postman import* with `postman/collection.json`, then add the extractors listed in `correlation_report.md`.
+- **NeoLoadCmd:** copy `default.yaml` and `data/` next to your `.nlp`, then run
+  `NeoLoadCmd -project "MyProject.nlp" "default.yaml" -launch Smoke_1VU -noGUI`.
+- **NeoLoad Web:** zip `neoload_project/` and upload it in *Run a test*; `default.yaml` loads automatically.
 
 Always run the smoke scenario / **Check User Path** and compare with the recording before a load test.
 
@@ -71,7 +73,7 @@ Toggle **Use sample recording** to try it without your own HAR.
 - **Chrome / Edge:** F12 → Network → tick *Preserve log* and *Disable cache* → run the flow → right-click → *Save all as HAR with content*.
 - **Fiddler:** File → Save → All Sessions → `.saz`.
 - Prefer Chrome or Firefox over Edge (less background traffic). Record one clean business flow per file.
-- HAR files contain cookies and passwords — use test accounts.
+- HAR files contain cookies and passwords - use test accounts.
 
 ## Tests
 

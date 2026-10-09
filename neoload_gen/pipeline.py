@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
 from .correlation import correlate, reset_working_copies
-from .exporters import (IMPORT_GUIDE, ExportOptions, build_as_code, build_postman, build_report, build_zip,
+from .exporters import (ExportOptions, build_as_code, build_postman, build_report, build_zip, import_guide,
                         to_csv, to_yaml)
 from .filtering import filter_exchanges, group_transactions, host_summary
 from .models import Correlation, Exchange, ParamCandidate, Transaction
@@ -72,7 +72,7 @@ def run(
     root = opts.project_name
     out = {
         f"{root}/neoload_project/default.yaml": yaml_text,
-        f"{root}/neoload_project/HOW_TO_USE.md": IMPORT_GUIDE,
+        f"{root}/neoload_project/HOW_TO_USE.md": import_guide(opts.project_name, files),
         f"{root}/postman/collection.json": json.dumps(postman, indent=2),
         f"{root}/correlation_report.md": report,
     }

@@ -213,7 +213,9 @@ _VAR = re.compile(r"\$\{(?:[A-Za-z0-9_]+\.)?([A-Za-z0-9_]+)\}")
 
 
 def _pm(text: str) -> str:
-    return _VAR.sub(r"{{\1}}", _REF.sub(r"\1", text or ""))
+    """Keep NeoLoad ${var} syntax: NeoLoad's Postman import keeps literal ${...}
+    text, while unknown {{var}} placeholders are imported as empty strings."""
+    return _REF.sub(r"\1", text or "")
 
 
 def _js_accessor(segs: list) -> str:
@@ -286,7 +288,7 @@ def build_postman(exchanges: List[Exchange], transactions: List[Transaction], co
 def build_report(exchanges: List[Exchange], transactions: List[Transaction], correlations: List[Correlation],
                  params: List[ParamCandidate], warnings: List[dict], stats: dict) -> str:
     by_id = {e.idx: e for e in exchanges}
-    L = [f"# Correlation and parameterization report — {stats.get('project','')}", ""]
+    L = [f"# Correlation and parameterization report - {stats.get('project','')}", ""]
     L.append(f"- Recorded requests: {stats.get('total', 0)}; kept after filtering: {len(exchanges)}")
     L.append(f"- Hosts kept: {', '.join(stats.get('hosts', []))}")
     L.append(f"- Transactions: {len(transactions)}; correlations: {len(correlations)}; "
@@ -316,42 +318,61 @@ def build_report(exchanges: List[Exchange], transactions: List[Transaction], cor
     L += ["", "## Needs manual review", ""]
     if warnings:
         for w in warnings:
-            L.append(f"- {w['request']}: `{w['parameter']}` ({w['location']}) — {w['reason']}")
+            L.append(f"- {w['request']}: `{w['parameter']}` ({w['location']}) - {w['reason']}")
     else:
         L.append("Nothing flagged.")
     L += ["", "Always run **Check User Path** in NeoLoad before a load test and compare it with the recording.", ""]
     return "\n".join(L)
 
 
-IMPORT_GUIDE = """# Using this project in NeoLoad
+def import_guide(project: str, files: Dict[str, List[Dict[str, str]]]) -> str:
+    """HOW_TO_USE.md, written only with ASCII so it renders in any editor."""
+    data_lines = []
+    if "credentials" in files:
+        data_lines.append("- data/credentials.csv: one row per virtual user (scope = unique). "
+                          "Add as many rows as the number of VUs you will run.")
+    if "testdata" in files:
+        data_lines.append("- data/testdata.csv: one row per iteration (scope = global). Add rows for data variety.")
+    if not data_lines:
+        data_lines.append("- No fields were parameterized, so there are no data files.")
+    return f"""# Using {project} in NeoLoad
 
-This folder is a NeoLoad **as-code** project: `default.yaml` + CSV data files.
+This zip gives you the same script in two forms:
 
-## Option 1 — NeoLoad GUI (Design view)
-1. Create or open a NeoLoad project.
-2. Copy `default.yaml` and the `data/` folder into the NeoLoad project folder
-   (the folder that contains the `.nlp` file).
-3. Run or validate it from the command line together with your project, e.g.
-   `NeoLoadCmd -project "<path>\\MyProject.nlp" "<path>\\default.yaml" -launch Smoke_1VU`
-   User paths, variables, servers and scenarios in the YAML are added to the project.
-4. Alternatively import `postman/collection.json` through
-   *User Path > Creation method > Postman import*, then add the extractors listed in
-   `correlation_report.md`.
+| File | What it is | How you use it |
+|---|---|---|
+| neoload_project/default.yaml | NeoLoad as-code project (user path, extractors, variables, servers, scenarios) | NeoLoadCmd or NeoLoad Web |
+| postman/collection.json | Same requests as a Postman collection | NeoLoad GUI: User Path > Postman import |
 
-## Option 2 — NeoLoad Web
-Zip this folder and upload it in *Run a test*; `default.yaml` is loaded automatically.
+Note: the NeoLoad GUI (Design view) cannot open a YAML file directly. Use Route A to work in the GUI,
+or Route B / C to run the YAML as it is.
 
-## Option 3 — NeoLoad CLI
-`neoload project --path . upload` then `neoload run`.
+## Route A - NeoLoad GUI
+1. In NeoLoad, create a project, then User Paths > New User Path > Postman import.
+2. Select postman/collection.json (and postman/data.csv if asked).
+3. Add the variable extractors listed in correlation_report.md (variable name, request, regex or JSONPath).
+4. Create the File variables from neoload_project/data/*.csv.
+5. Run Check User Path.
 
-## Scenarios included
-- `Smoke_1VU` — one user, one iteration: use it to validate the script.
-- `Load_Test` — constant load with ramp-up (values chosen in the app).
+## Route B - NeoLoadCmd with your project
+1. Copy default.yaml and the data folder next to your .nlp file.
+2. Run:
+   NeoLoadCmd -project "<path>\\MyProject.nlp" "<path>\\default.yaml" -launch Smoke_1VU -noGUI
+   The user paths, variables, servers and scenarios from the YAML are added to the project for that run.
+
+## Route C - NeoLoad Web
+Zip the neoload_project folder and upload it in "Run a test". default.yaml is loaded automatically.
+
+## Scenarios in default.yaml
+- Smoke_1VU: 1 user, 1 iteration. Run this first to validate the script.
+- Load_Test: constant load with ramp-up (values chosen in the app).
+
+## Test data
+{chr(10).join(data_lines)}
 
 ## Before you load test
-- Fill `data/credentials.csv` with one row per virtual user (scope is *unique*).
-- Add rows to `data/testdata.csv` for realistic data variety.
-- Review every item in `correlation_report.md`, especially *Needs manual review*.
+- Read correlation_report.md, especially "Needs manual review".
+- Always validate with 1 VU and compare responses with the recording.
 """
 
 

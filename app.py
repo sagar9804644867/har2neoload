@@ -258,11 +258,11 @@ with t4:
 
 with st.expander("How to use the project in NeoLoad"):
     st.markdown(
-        "1. Unzip. `neoload_project/` holds `default.yaml` and `data/*.csv`.\n"
-        "2. **With your NeoLoad project:** copy `default.yaml` and `data/` into the project folder (next to the `.nlp`) "
-        "and run `NeoLoadCmd -project MyProject.nlp default.yaml -launch Smoke_1VU`. Elements in the YAML are added to the project.\n"
-        "3. **NeoLoad Web:** zip `neoload_project/` and upload it in *Run a test* — `default.yaml` loads automatically.\n"
-        "4. **GUI-only alternative:** *User Path → Postman import* with `postman/collection.json`, then add the extractors "
-        "from the report.\n"
-        "5. Run the `Smoke_1VU` scenario (or Check User Path) first, then `Load_Test`."
+        "The NeoLoad GUI cannot open a YAML file directly, so the zip contains two forms of the script.\n\n"
+        "- **NeoLoad GUI:** *User Paths > New User Path > Postman import* with `postman/collection.json`, "
+        "then add the extractors listed in `correlation_report.md` and run Check User Path.\n"
+        "- **NeoLoadCmd:** copy `default.yaml` and `data/` next to your `.nlp`, then run "
+        "`NeoLoadCmd -project MyProject.nlp default.yaml -launch Smoke_1VU -noGUI`.\n"
+        "- **NeoLoad Web:** zip `neoload_project/` and upload it in *Run a test*.\n\n"
+        "Full steps are in `neoload_project/HOW_TO_USE.md`."
     )
