@@ -118,7 +118,9 @@ def _action_xml(e: Exchange, uid: str, server_uid: str, extractors: List[Correla
         if title and "${" not in title and len(title) <= 80 and 200 <= e.status < 300:
             xml.append(f'    <assertions>\n        <assertion-content name="assertion_1" notType="false" '
                        f'pattern="{_a(title)}"/>\n    </assertions>\n')
-    tag = "urlPostParameter" if has_body else "parameter"
+    # NeoLoad: <parameter> = query string for GET but form body for POST-like methods;
+    # URL query parameters of POST/PUT/... go in <urlPostParameter> (verified on ParaBank createAccount).
+    tag = "parameter" if method in ("GET", "HEAD", "OPTIONS", "TRACE") else "urlPostParameter"
     for k, v in _query_pairs(out.query):
         xml.append(_param_xml(tag, k, v))
     for k, v in e.out_headers:

@@ -92,3 +92,13 @@ def test_neoload_gui_project_matches_neoload_format():
     for n in ("repository.xml", "scenario.xml", "settings.xml"):
         extra = errors(cfg.read(n)) - set(base[n])
         assert not extra, (n, extra)
+
+
+def test_post_query_params_are_url_parameters():
+    from neoload_gen.models import Exchange
+    from neoload_gen.nlp_export import _action_xml
+    e = Exchange(idx=1, started_ms=0, duration_ms=0, method="POST",
+                 url="https://parabank.parasoft.com/parabank/services_proxy/bank/createAccount?customerId=12212&newAccountType=1&fromAccountId=13344",
+                 req_headers=[], req_body="", status=200, resp_headers=[], resp_body="")
+    xml = _action_xml(e, "u1", "parabank.parasoft.com", [], False)
+    assert xml.count("<urlPostParameter ") == 3 and "<parameter " not in xml
