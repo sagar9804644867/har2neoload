@@ -337,7 +337,9 @@ def import_guide(project: str, files: Dict[str, List[Dict[str, str]]]) -> str:
         data_lines.append("- No fields were parameterized, so there are no data files.")
     return f"""# Using {project} in NeoLoad
 
-This zip gives you the same script in two forms:
+This zip gives you the script in three forms. The easiest: open NeoLoad_GUI_Project/<project>/<project>.nlp in NeoLoad (File > Open) - everything is already in place.
+
+Other forms:
 
 | File | What it is | How you use it |
 |---|---|---|
@@ -380,5 +382,8 @@ def build_zip(files_map: Dict[str, str]) -> bytes:
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
         for path, content in files_map.items():
-            z.writestr(path, content)
+            if path.endswith("/"):
+                z.writestr(zipfile.ZipInfo(path), b"")
+            else:
+                z.writestr(path, content)
     return buf.getvalue()

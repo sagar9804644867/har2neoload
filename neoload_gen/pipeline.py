@@ -11,6 +11,7 @@ from .exporters import (ExportOptions, build_as_code, build_postman, build_repor
                         to_csv, to_yaml)
 from .filtering import filter_exchanges, group_transactions, host_summary
 from .models import Correlation, Exchange, ParamCandidate, Transaction
+from .nlp_export import build_nlp_project
 from .parameterization import apply_parameters, data_files, detect_parameters
 
 
@@ -76,6 +77,14 @@ def run(
         f"{root}/postman/collection.json": json.dumps(postman, indent=2),
         f"{root}/correlation_report.md": report,
     }
+    nlp_files, nlp_notes = build_nlp_project(
+        opts.project_name, opts.user_path_name, exchanges, txs, correlations, files,
+        opts.load_users, opts.load_duration_min, opts.load_rampup_min, opts.add_assertions, opts.think_times)
+    for rel, data in nlp_files.items():
+        out[f"{root}/NeoLoad_GUI_Project/{opts.project_name}/{rel}"] = data
+    if nlp_notes:
+        report += "\n## Notes for the NeoLoad project\n\n" + "\n".join(f"- {n}" for n in nlp_notes) + "\n"
+        out[f"{root}/correlation_report.md"] = report
     merged_row: Dict[str, str] = {}
     for group, rows in files.items():
         out[f"{root}/neoload_project/data/{group}.csv"] = to_csv(rows)

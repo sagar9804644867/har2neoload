@@ -37,14 +37,15 @@ Scenarios included: `Smoke_1VU` (1 user, 1 iteration - validate first) and `Load
 
 ## Using the project in NeoLoad
 
-The NeoLoad GUI cannot open YAML directly, so the zip contains two forms of the script:
+**Open directly in the NeoLoad GUI:** unzip and open `NeoLoad_GUI_Project/<Project>/<Project>.nlp` with *File > Open*.
+Init / Actions / End, variable extractors, File variables, population and the `Load_Test` (ramp-up) and
+`Smoke_1VU` scenarios are already configured - press Run.
 
-- **NeoLoad GUI:** *User Paths > New User Path > Postman import* with `postman/collection.json`, then add the extractors listed in `correlation_report.md`.
-- **NeoLoadCmd:** copy `default.yaml` and `data/` next to your `.nlp`, then run
-  `NeoLoadCmd -project "MyProject.nlp" "default.yaml" -launch Smoke_1VU -noGUI`.
-- **NeoLoad Web:** zip `neoload_project/` and upload it in *Run a test*; `default.yaml` loads automatically.
+The project is written in the format saved by NeoLoad 2026.2 (project version 8.11). Other NeoLoad versions
+may convert or reject it; the as-code `default.yaml` and the Postman collection are included as fallbacks:
 
-Always run the smoke scenario / **Check User Path** and compare with the recording before a load test.
+- **NeoLoadCmd:** `NeoLoadCmd -project "default.yaml" -launch Smoke_1VU -noGUI`
+- **NeoLoad Web:** zip `neoload_project/` and upload it in *Run a test*.
 
 ## Run locally
 

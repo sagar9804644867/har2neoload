@@ -256,13 +256,13 @@ with t4:
     st.markdown(f"**Response** — HTTP {pick.status}, {pick.resp_content_type or 'n/a'}")
     st.code(pick.resp_body[:5000] or "(no text body)", language="html")
 
-with st.expander("How to use the project in NeoLoad"):
+with st.expander("How to use the project in NeoLoad", expanded=True):
     st.markdown(
-        "The NeoLoad GUI cannot open a YAML file directly, so the zip contains two forms of the script.\n\n"
-        "- **NeoLoad GUI:** *User Paths > New User Path > Postman import* with `postman/collection.json`, "
-        "then add the extractors listed in `correlation_report.md` and run Check User Path.\n"
-        "- **NeoLoadCmd:** copy `default.yaml` and `data/` next to your `.nlp`, then run "
-        "`NeoLoadCmd -project MyProject.nlp default.yaml -launch Smoke_1VU -noGUI`.\n"
-        "- **NeoLoad Web:** zip `neoload_project/` and upload it in *Run a test*.\n\n"
-        "Full steps are in `neoload_project/HOW_TO_USE.md`."
+        "**Open directly in NeoLoad (recommended):** unzip, then in NeoLoad use *File > Open* and pick "
+        f"`NeoLoad_GUI_Project/{project}/{project}.nlp`. The user path (Init / Actions / End), extractors, "
+        "File variables, population and the **Load_Test** and **Smoke_1VU** scenarios are already in place. "
+        "Run **Smoke_1VU** (or Check User Path) first, then **Load_Test**.\n\n"
+        "Generated in the project format of NeoLoad 2026.2 (project version 8.11).\n\n"
+        "Other formats in the zip: `neoload_project/default.yaml` (as-code, for NeoLoadCmd / NeoLoad Web) and "
+        "`postman/collection.json`."
     )

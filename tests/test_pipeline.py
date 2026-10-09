@@ -71,3 +71,24 @@ def test_saz_parsed():
     ex, r = _run("sample_blazedemo.saz")
     assert any("/reserve.php" in e.url for e in ex)
     assert any(c.var == "c_token" for c in r.correlations)
+
+
+def test_neoload_gui_project_matches_neoload_format():
+    import io, sys, zipfile
+    sys.path.insert(0, str(ROOT / "tests"))
+    from nl_validate import errors
+    base = json.loads((ROOT / "tests" / "fixtures" / "neoload_2026_2_baseline_errors.json").read_text())
+    _, r = _run("sample_blazedemo.har")
+    z = zipfile.ZipFile(io.BytesIO(r.zip_bytes))
+    names = z.namelist()
+    assert "BlazeDemo/NeoLoad_GUI_Project/BlazeDemo/BlazeDemo.nlp" in names
+    cfg = zipfile.ZipFile(io.BytesIO(z.read("BlazeDemo/NeoLoad_GUI_Project/BlazeDemo/config.zip")))
+    repo = cfg.read("repository.xml").decode()
+    assert "<init-container" in repo and "<actions-container" in repo and "<variable-file" in repo
+    assert 'extractType="4"' in repo and 'jsonpath="$.data.access_token"' in repo
+    assert "${c_token}" in repo and "${credentials.email}" in repo
+    scen = cfg.read("scenario.xml").decode()
+    assert 'uid="Load_Test"' in scen and "<rampup-volume-policy" in scen
+    for n in ("repository.xml", "scenario.xml", "settings.xml"):
+        extra = errors(cfg.read(n)) - set(base[n])
+        assert not extra, (n, extra)
