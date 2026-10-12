@@ -1,0 +1,362 @@
+<!--****** MONITORED HOSTS ******-->
+<monitored-host-system host-name="" load-generator="false" proxy-id="" uid="NeoLoad">
+    <embedded-action>7633853d-8175-462f-8835-cdead3d25c1b</embedded-action>
+</monitored-host-system>
+<!--****** END MONITORED HOSTS ******-->
+<!--****** MONITOR CONNECTIONS ******-->
+<connection-system interval="1000" name="NeoLoad" server-port="0" uid="7633853d-8175-462f-8835-cdead3d25c1b">
+    <monitor-category name="Default" short-display-name="Default">
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="UserLoad" sampling="0" unit=""/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="throughput" sampling="0" unit="Mb/s"/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="Alerts" sampling="0" unit=""/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="CriticalAlerts" sampling="0" unit=""/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="WarningAlerts" sampling="0" unit=""/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="cpu" sampling="0"
+            threshold="020b596a-b79a-4e67-9d88-519b20a4db99" unit="%"/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="memory" sampling="0"
+            threshold="92edb7de-ef97-4448-997a-5fe5900fe9ef" unit="%"/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="memoryos" sampling="0"
+            threshold="3a64255f-3496-437d-8b79-d4582bb77afa" unit="%"/>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="threadcount" sampling="0" unit=""/>
+        <monitor-category name="Load Generator Connections" short-display-name="Load Generator Connections">
+            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+                format="NUMBER" name="connectedlg" sampling="0" unit=""/>
+            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+                format="NUMBER" name="totallgdisconnections"
+                sampling="0"
+                threshold="3098b2fa-7d95-4f46-8be7-106b5e1f7290" unit=""/>
+            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+                format="NUMBER" name="totallgreconnections" sampling="0" unit=""/>
+        </monitor-category>
+        <monitor-category name="Network" short-display-name="Network">
+            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+                format="NUMBER" name="otcp.NeoLoad" sampling="0" unit=""/>
+            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+                format="NUMBER" name="tcp.NeoLoad" sampling="0" unit=""/>
+            <monitor-category
+                name="iftype53_0 (TAP-Windows Adapter V9-WFP Native MAC Layer LightWeight Filter-0000)" short-display-name="iftype53_0 (TAP-Windows Adapter V9-WFP Native MAC Layer LightWeight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~iftype53_0"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~iftype53_0"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_11 (Microsoft Wi-Fi Direct Virtual Adapter-WFP 802.3 MAC Layer LightWeight Filter-0000)" short-display-name="wireless_11 (Microsoft Wi-Fi Direct Virtual Adapter-WFP 802.3 MAC Layer LightWeight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_11"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_11"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="iftype53_1 (TAP-Windows Adapter V9-VirtualBox NDIS Light-Weight Filter-0000)" short-display-name="iftype53_1 (TAP-Windows Adapter V9-VirtualBox NDIS Light-Weight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~iftype53_1"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~iftype53_1"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_10 (Microsoft Wi-Fi Direct Virtual Adapter-QoS Packet Scheduler-0000)" short-display-name="wireless_10 (Microsoft Wi-Fi Direct Virtual Adapter-QoS Packet Scheduler-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_10"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_10"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_32769 (Microsoft Wi-Fi Direct Virtual Adapter)" short-display-name="wireless_32769 (Microsoft Wi-Fi Direct Virtual Adapter)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_32769"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_32769"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="ethernet_32772 (Bluetooth Device (Personal Area Network))" short-display-name="ethernet_32772 (Bluetooth Device (Personal Area Network))">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~ethernet_32772"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~ethernet_32772"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_32768 (Intel(R) Wi-Fi 6 AX101)" short-display-name="wireless_32768 (Intel(R) Wi-Fi 6 AX101)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_32768"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_32768"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="iftype53_2 (TAP-Windows Adapter V9-QoS Packet Scheduler-0000)" short-display-name="iftype53_2 (TAP-Windows Adapter V9-QoS Packet Scheduler-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~iftype53_2"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~iftype53_2"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="iftype53_3 (TAP-Windows Adapter V9-WFP 802.3 MAC Layer LightWeight Filter-0000)" short-display-name="iftype53_3 (TAP-Windows Adapter V9-WFP 802.3 MAC Layer LightWeight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~iftype53_3"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~iftype53_3"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_0 (Intel(R) Wi-Fi 6 AX101-WFP Native MAC Layer LightWeight Filter-0000)" short-display-name="wireless_0 (Intel(R) Wi-Fi 6 AX101-WFP Native MAC Layer LightWeight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_0"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_0"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_2 (Intel(R) Wi-Fi 6 AX101-Native WiFi Filter Driver-0000)" short-display-name="wireless_2 (Intel(R) Wi-Fi 6 AX101-Native WiFi Filter Driver-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_2"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_2"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_1 (Intel(R) Wi-Fi 6 AX101-Virtual WiFi Filter Driver-0000)" short-display-name="wireless_1 (Intel(R) Wi-Fi 6 AX101-Virtual WiFi Filter Driver-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_1"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_1"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_4 (Intel(R) Wi-Fi 6 AX101-QoS Packet Scheduler-0000)" short-display-name="wireless_4 (Intel(R) Wi-Fi 6 AX101-QoS Packet Scheduler-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_4"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_4"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="iftype53_32768 (TAP-Windows Adapter V9)" short-display-name="iftype53_32768 (TAP-Windows Adapter V9)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~iftype53_32768"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~iftype53_32768"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_3 (Intel(R) Wi-Fi 6 AX101-VirtualBox NDIS Light-Weight Filter-0000)" short-display-name="wireless_3 (Intel(R) Wi-Fi 6 AX101-VirtualBox NDIS Light-Weight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_3"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_3"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_5 (Intel(R) Wi-Fi 6 AX101-WFP 802.3 MAC Layer LightWeight Filter-0000)" short-display-name="wireless_5 (Intel(R) Wi-Fi 6 AX101-WFP 802.3 MAC Layer LightWeight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_5"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_5"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_8 (Microsoft Wi-Fi Direct Virtual Adapter-Native WiFi Filter Driver-0000)" short-display-name="wireless_8 (Microsoft Wi-Fi Direct Virtual Adapter-Native WiFi Filter Driver-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_8"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_8"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_7 (Microsoft Wi-Fi Direct Virtual Adapter-WFP Native MAC Layer LightWeight Filter-0000)" short-display-name="wireless_7 (Microsoft Wi-Fi Direct Virtual Adapter-WFP Native MAC Layer LightWeight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_7"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_7"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+            <monitor-category
+                name="wireless_9 (Microsoft Wi-Fi Direct Virtual Adapter-VirtualBox NDIS Light-Weight Filter-0000)" short-display-name="wireless_9 (Microsoft Wi-Fi Direct Virtual Adapter-VirtualBox NDIS Light-Weight Filter-0000)">
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="ibytesperinterface~NeoLoad~wireless_9"
+                    sampling="0" unit="Mb/s"/>
+                <monitor-wrapped-statistic callTime="ON_BENCH"
+                    computing="0" format="NUMBER"
+                    name="obytesperinterface~NeoLoad~wireless_9"
+                    sampling="0" unit="Mb/s"/>
+            </monitor-category>
+        </monitor-category>
+        <monitor-category name="NeoLoad Web" short-display-name="NeoLoad Web">
+            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+                format="NUMBER" name="nlwebdownload" sampling="0" unit=""/>
+            <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+                format="NUMBER" name="nlwebupload" sampling="0" unit=""/>
+        </monitor-category>
+        <monitor-wrapped-statistic callTime="ON_BENCH" computing="0"
+            format="NUMBER" name="SapUserLoad" sampling="0" unit=""/>
+    </monitor-category>
+    <threshold enabled="true" uid="020b596a-b79a-4e67-9d88-519b20a4db99">
+        <threshold-condition durationKind="SECONDS" durationNumber="15"
+            operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
+            <threshold-comment language="en">
+                <threshold-content>Controller CPU high.</threshold-content>
+            </threshold-comment>
+            <threshold-comment language="fr">
+                <threshold-content>CPU du Contrôleur surchargé.</threshold-content>
+            </threshold-comment>
+        </threshold-condition>
+        <threshold-condition durationKind="SECONDS" durationNumber="15"
+            operator="GREATER_THAN" severity="HIGH" valueMax="Infinity" valueMin="90.0">
+            <threshold-comment language="en">
+                <threshold-content>Controller CPU high.</threshold-content>
+            </threshold-comment>
+            <threshold-comment language="fr">
+                <threshold-content>CPU du Contrôleur surchargé.</threshold-content>
+            </threshold-comment>
+        </threshold-condition>
+    </threshold>
+    <threshold enabled="true" uid="92edb7de-ef97-4448-997a-5fe5900fe9ef">
+        <threshold-condition durationKind="SECONDS" durationNumber="15"
+            operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
+            <threshold-comment language="en">
+                <threshold-content>Too high amount of JVM memory used</threshold-content>
+            </threshold-comment>
+            <threshold-comment language="fr">
+                <threshold-content>Quantité de mémoire de la JVM  en cours d'utilisation élevée</threshold-content>
+            </threshold-comment>
+        </threshold-condition>
+        <threshold-condition durationKind="SECONDS" durationNumber="15"
+            operator="GREATER_THAN" severity="HIGH" valueMax="Infinity" valueMin="90.0">
+            <threshold-comment language="en">
+                <threshold-content>Too high amount of JVM memory used</threshold-content>
+            </threshold-comment>
+            <threshold-comment language="fr">
+                <threshold-content>Quantité de mémoire de la JVM  en cours d'utilisation élevée</threshold-content>
+            </threshold-comment>
+        </threshold-condition>
+    </threshold>
+    <threshold enabled="true" uid="3a64255f-3496-437d-8b79-d4582bb77afa">
+        <threshold-condition durationKind="SECONDS" durationNumber="15"
+            operator="GREATER_THAN" severity="LOW" valueMax="Infinity" valueMin="80.0">
+            <threshold-comment language="en">
+                <threshold-content>Too high amount of OS memory used</threshold-content>
+            </threshold-comment>
+            <threshold-comment language="fr">
+                <threshold-content>Quantité de mémoire de l'OS  en cours d'utilisation élevée</threshold-content>
+            </threshold-comment>
+        </threshold-condition>
+        <threshold-condition durationKind="SECONDS" durationNumber="15"
+            operator="GREATER_THAN" severity="HIGH" valueMax="Infinity" valueMin="90.0">
+            <threshold-comment language="en">
+                <threshold-content>Too high amount of OS memory used</threshold-content>
+            </threshold-comment>
+            <threshold-comment language="fr">
+                <threshold-content>Quantité de mémoire de l'OS  en cours d'utilisation élevée</threshold-content>
+            </threshold-comment>
+        </threshold-condition>
+    </threshold>
+    <threshold enabled="true" uid="3098b2fa-7d95-4f46-8be7-106b5e1f7290">
+        <threshold-condition durationKind="NB_OF_TIMES"
+            durationNumber="1" operator="GREATER_THAN" severity="LOW"
+            valueMax="Infinity" valueMin="1.0">
+            <threshold-comment language="en">
+                <threshold-content>Load Generator Diconnected &gt;=1</threshold-content>
+            </threshold-comment>
+            <threshold-comment language="fr">
+                <threshold-content>Injecteur  déconnecté &gt;= 1</threshold-content>
+            </threshold-comment>
+        </threshold-condition>
+    </threshold>
+</connection-system>
+<!--****** END MONITOR CONNECTIONS ******-->
+<!--****** MONITORENGINE HOSTS ******-->
+<me-host browserBasedSupport="false" citrixSupport="false"
+    loadWeight="1" sapSupport="false" standalone="false"
+    supportWANEmulation="false" uid="localhost" version="2026.2.1;build=20260925-58">
+    <!--****** LG NETWORK INTERFACES ******-->
+</me-host>
+<!--****** END MONITORENGINE HOSTS ******-->
+<!--****** DASHBOARDS  ******-->
+<!--****** END DASHBOARDS  ******-->
+<!--****** RESULTS GRAPH DESC TEMPLATES ******-->
+<charts-templates-description name="template.customs"/>
+<!--****** END RESULTS GRAPH DESC TEMPLATES******-->
+<!--****** ZONES ******-->
+<zones defaultZoneUid="Default zone" dnsOverrideEnabled="false" dnsTtl="30"/>
+<zone dnsOverrideEnabled="false" proxyType="COMMON"
+    proxyTypeLg="NO_PROXY" uid="Default zone">
+    <embedded-action>63a6f69f-37f1-4f3c-bf3f-d9402d2c6221</embedded-action>
+</zone>
+<lg-host browserBasedSupport="false" citrixSupport="false"
+    hostname="localhost:7100" loadWeight="1" sapSupport="false"
+    standalone="false" supportWANEmulation="false"
+    uid="63a6f69f-37f1-4f3c-bf3f-d9402d2c6221" version="2026.2.1;build=20260925-58">
+    <!--****** LG NETWORK INTERFACES ******-->
+</lg-host>
+</repository>
