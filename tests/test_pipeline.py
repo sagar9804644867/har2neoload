@@ -102,3 +102,27 @@ def test_post_query_params_are_url_parameters():
                  req_headers=[], req_body="", status=200, resp_headers=[], resp_body="")
     xml = _action_xml(e, "u1", "parabank.parasoft.com", [], False)
     assert xml.count("<urlPostParameter ") == 3 and "<parameter " not in xml
+
+
+def test_binary_and_control_chars_produce_well_formed_xml():
+    from lxml import etree
+    from neoload_gen.models import Exchange
+    from neoload_gen.nlp_export import _action_xml
+    e = Exchange(idx=1, started_ms=0, duration_ms=0, method="POST", url="https://x.example.com/bf?a=1",
+                 req_headers=[("X-Test", "a\x00b\x85c")], req_body="ab\x00\x01\x9fcd", status=200,
+                 resp_headers=[], resp_body="")
+    xml = _action_xml(e, "u1", "x.example.com", [], False)
+    etree.fromstring(xml.encode())
+    assert "<binaryPostContentBase64>" in xml and "<textPostContent>" not in xml
+
+
+def test_third_party_hosts_not_suggested():
+    from neoload_gen.models import Exchange
+    from neoload_gen.filtering import host_summary
+    mk = lambda i, u, ct: Exchange(idx=i, started_ms=0, duration_ms=0, method="GET", url=u, req_headers=[],
+                                   req_body="", status=200, resp_headers=[("Content-Type", ct)], resp_body="")
+    ex = [mk(1, "https://www.next.co.uk/", "text/html"), mk(2, "https://api.e.next.co.uk/x", "application/json"),
+          mk(3, "https://tags.next.co.uk/c", "text/plain"), mk(4, "https://bf1.bf.dynatrace.com/bf", "text/plain"),
+          mk(5, "https://ct.pinterest.com/v3", "image/gif")]
+    sug = {h["host"] for h in host_summary(ex) if h["suggested"]}
+    assert sug == {"www.next.co.uk", "api.e.next.co.uk"}

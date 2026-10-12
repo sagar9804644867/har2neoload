@@ -20,6 +20,13 @@ NOISE_PATTERNS = [
     r"mozilla\.(com|net|org)$", r"firefox\.com$", r"mcafee\.com$", r"wps\.com$",
     r"keen\.io$", r"prodperfect\.com$", r"clarity\.ms$", r"cloudflareinsights\.com$",
     r"sentry\.io$", r"optimizely\.com$", r"adobe(dtm)?\.com$", r"demdex\.net$",
+    r"dynatrace\.com$", r"cookielaw\.org$", r"onetrust\.com$", r"pinterest\.com$", r"pinimg\.com$",
+    r"snapchat\.com$", r"sc-static\.net$", r"amazon-adsystem\.com$", r"taboola\.com$", r"adsrvr\.org$",
+    r"tiktok\.com$", r"teads\.tv$", r"reddit(static)?\.com$", r"adalyser\.com$", r"tvsquared\.com$",
+    r"usablenet\.com$", r"app\.link$", r"brcdn\.com$", r"openai\.com$", r"cdn-apple\.com$",
+    r"queue-it\.net$", r"criteo\.(com|net)$", r"quantserve\.com$", r"scorecardresearch\.com$",
+    r"hubspot\.com$", r"linkedin\.com$", r"licdn\.com$", r"twitter\.com$", r"t\.co$",
+    r"yahoo\.com$", r"bing\.net$", r"appdynamics\.com$", r"go-mpulse\.net$", r"akamaihd\.net$",
 ]
 _NOISE_RE = [re.compile(p, re.I) for p in NOISE_PATTERNS]
 
@@ -30,14 +37,33 @@ STATIC_EXT = re.compile(
 NOISE_PATHS = re.compile(r"/(OneCollector|autofillservice|componentupdater|filestreamingservice|collect|beacon)\b", re.I)
 
 
+_ANALYTICS_SUB = re.compile(r"^(tags?|analytics|metrics|stats|telemetry|beacon|collect|tracking|tms|gtm|sgtm|rum)\.", re.I)
+
+
 def is_noise_host(host: str) -> bool:
-    return any(r.search(host) for r in _NOISE_RE)
+    return any(r.search(host) for r in _NOISE_RE) or bool(_ANALYTICS_SUB.match(host))
+
+
+_SLD = {"co", "com", "net", "org", "gov", "ac", "edu"}
+
+
+def site_domain(host: str) -> str:
+    """Registrable domain approximation: next.co.uk, parasoft.com, ..."""
+    parts = host.split(".")
+    if len(parts) >= 3 and parts[-2] in _SLD and len(parts[-1]) == 2:
+        return ".".join(parts[-3:])
+    return ".".join(parts[-2:])
 
 
 def host_summary(exchanges: List[Exchange]) -> List[dict]:
     counts = Counter(e.host for e in exchanges)
+    # the application = the site whose HTML documents were navigated most
+    docs = Counter(site_domain(e.host) for e in exchanges if "html" in e.resp_content_type and not is_noise_host(e.host))
+    if not docs:
+        docs = Counter(site_domain(h) for h in counts if not is_noise_host(h))
+    main = {d for d, _ in docs.most_common(1)}
     return [
-        {"host": h, "requests": n, "suggested": not is_noise_host(h)}
+        {"host": h, "requests": n, "suggested": (site_domain(h) in main) and not is_noise_host(h)}
         for h, n in counts.most_common()
     ]
 

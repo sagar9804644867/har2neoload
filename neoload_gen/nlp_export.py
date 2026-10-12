@@ -32,13 +32,25 @@ DROP_HEADERS = {"cookie", "host", "content-length", "connection", "proxy-connect
                 "accept-encoding", "dnt", "accept-language"}
 
 
+_BAD_XML = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x84\x86-\x9f\ufffe\uffff\ud800-\udfff]")
+
+
+def _clean(text) -> str:
+    """Remove characters that are illegal in XML (NUL, control chars, lone surrogates)."""
+    return _BAD_XML.sub("", str(text))
+
+
+def _is_binary(text: str) -> bool:
+    return bool(text) and bool(_BAD_XML.search(text))
+
+
 def _a(value) -> str:
     """XML attribute value (double-quoted)."""
-    return _esc(str(value), {'"': "&quot;", "\n": "&#xa;", "\r": "&#xd;", "\t": "&#x9;"})
+    return _esc(_clean(value), {'"': "&quot;", "\n": "&#xa;", "\r": "&#xd;", "\t": "&#x9;"})
 
 
 def _cdata(text: str) -> str:
-    return "<![CDATA[" + text.replace("]]>", "]]]]><![CDATA[>") + "]]>"
+    return "<![CDATA[" + _clean(text).replace("]]>", "]]]]><![CDATA[>") + "]]>"
 
 
 def _uid() -> str:
@@ -103,14 +115,19 @@ def _action_xml(e: Exchange, uid: str, server_uid: str, extractors: List[Correla
     out = urlsplit(e.out_url)
     path = out.path or "/"
     has_body = bool(e.out_body) and e.method in ("POST", "PUT", "PATCH", "DELETE")
+    binary = has_body and _is_binary(e.out_body)
     method = e.method if e.method in ("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "TRACE") else "POST"
     custom = f' customMethod="{_a(e.method)}"' if method != e.method else ""
     attrs = (f'actionType="1" extractorInjectPathPolicy="2" extractorPathPolicy="1" followRedirects="false" '
              f'generatedByClient="false" linkExtractorSeveralMatchOccurrence="1" linkExtractorSeveralMatchPolicy="1" '
              f'linkExtractorType="6" method="{method}"{custom} name="{_a(path)}" path="{_a(path)}" '
-             f'postType="{4 if has_body else 1}" serverUid="{_a(server_uid)}" slaProfileEnabled="false" '
+             f'postType="{4 if has_body and not binary else 1}" serverUid="{_a(server_uid)}" slaProfileEnabled="false" '
              f'uid="{uid}" useKeepAlive="false"')
     xml = [f"<http-action {attrs}>\n"]
+    if binary:
+        import base64
+        raw = e.out_body.encode("latin-1", errors="replace")
+        xml.append(f"    <binaryPostContentBase64>{_cdata(base64.b64encode(raw).decode())}</binaryPostContentBase64>\n")
     for c in extractors:
         xml.append(_extractor_xml(c, uid))
     if assertion:
@@ -130,7 +147,7 @@ def _action_xml(e: Exchange, uid: str, server_uid: str, extractors: List[Correla
         xml.append(f'    <header name="{_a(k)}" value="{_a(v)}"/>\n')
     xml.append("    <responseHeaders/>\n")
     xml.append('    <record-html-infos extractorRegExp="false" htmlType="0"/>\n')
-    if has_body:
+    if has_body and not binary:
         xml.append(f"    <textPostContent>{_cdata(_plain(e.out_body))}</textPostContent>\n")
     xml.append("</http-action>\n")
     return "".join(xml)
